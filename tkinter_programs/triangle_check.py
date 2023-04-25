@@ -1,18 +1,25 @@
 from tkinter import Tk, StringVar
 from tkinter.ttk import Label, Button, Entry
 
+#Information about the window - Name, size, resisability
+root = Tk()
+root.title("Triangle Checker")
+root.geometry("340x300")
+
 #Used to show messages easier
 def show_message(txt):
-    message_label = Label(root, text=txt,)
+    global message_label
+    message_label.destroy()
+    message_label = Label(root, text=txt)
     message_label.grid(row=5, column=1)
 
 #This is done to check if the inputs and sides are correct
 def check_sides(event):
     #Checks to see if all entry boxes have an input
-    if side1_entry.get() == "" or side2_entry.get() == "" or side3_entry.get() == "":
+    if (side1_entry.get() == "" or side2_entry.get() == "" or side3_entry.get() == ""):
         show_message("All entry boxes need to be filled.")
     #Checks to see if the entry boxes has any 0's
-    elif side1_entry.get() == 0 or side2_entry.get() == 0 or side3_entry.get() == 0:
+    elif (side1_entry.get() == 0 or side2_entry.get() == 0 or side3_entry.get() == 0):
         show_message("Don't input 0's.")
     #Checks to see if the inputs are integers (tried to make it using a minimal amount of lines)
     elif not(side1_entry.get().isdigit() and side2_entry.get().isdigit() and side3_entry.get().isdigit()):
@@ -31,11 +38,6 @@ def check_sides(event):
         #Triangular inequality: sum of shorter sides >= longest side
         if sum(sides) >= longest_side: show_message("This triangle is valid.")
         else: show_message("This triangle is invalid.")
-
-#Information about the window - Name, size, resisability
-root = Tk()
-root.title("Triangle Checker")
-root.geometry("340x300")
 
 #Introduction message at the top
 intro_label = Label(root, text="Enter sides to check if they make a triangle :")
@@ -71,4 +73,8 @@ check_button = Button(root, text="Check")
 check_button.bind("<Button-1>", check_sides)
 check_button.focus()
 check_button.grid(row=4, column=1)
+
+#This is done to replace the message shown underneath the check button
+message_label = Label(root, text=" ")
+message_label.grid(row=5, column=1)
 root.mainloop()
