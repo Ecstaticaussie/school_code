@@ -1,6 +1,7 @@
 from tkinter import Tk, StringVar
 from tkinter.ttk import Label, Button, Entry
 
+#Used to show messags easier
 def show_message(txt):
     message_label = Label(root, text=txt)
     message_label.grid(row=5, column=1)
@@ -28,7 +29,7 @@ def check_sides(event):
 #Information about the window - Name, size, resisability
 root = Tk()
 root.title("Triangle Checker")
-root.geometry("500x300")
+root.geometry("340x300")
 
 #Introduction message at the top
 intro_label = Label(root, text="Enter sides to check if they make a triangle :")
