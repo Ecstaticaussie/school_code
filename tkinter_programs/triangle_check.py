@@ -1,15 +1,21 @@
 from tkinter import Tk, StringVar
 from tkinter.ttk import Label, Button, Entry
 
-#Used to show messags easier
+#Used to show messages easier
 def show_message(txt):
     message_label = Label(root, text=txt)
     message_label.grid(row=5, column=1)
 
 #This is done to check if the inputs and sides are correct
 def check_sides(event):
+    #Checks to see if all entry boxes have an input
+    if not side1_entry.get() or not side1_entry.get() or not side1_entry.get():
+        show_message("All entry boxes need to be filled")
+    #Checks to see if the entry boxes has any 0's
+    elif side1_entry.get() == 0 or side1_entry.get() == 0 or side1_entry.get() == 0:
+        show_message("Don't input 0's.")
     #Checks to see if the inputs are integers (tried to make it using a minimal amount of lines)
-    if not(side1_entry.get().isdigit() and side2_entry.get().isdigit() and side3_entry.get().isdigit()):
+    elif not(side1_entry.get().isdigit() and side2_entry.get().isdigit() and side3_entry.get().isdigit()):
         show_message("Only input INTEGERS!!")
     else:
         #All the values of each side
@@ -23,8 +29,8 @@ def check_sides(event):
         sides.remove(longest_side)
 
         #Triangular inequality: sum of shorter sides >= longest side
-        if sum(sides) >= longest_side: show_message("This triangle is valid")
-        else: show_message("This triangle is invalid")
+        if sum(sides) >= longest_side: show_message("This triangle is valid.")
+        else: show_message("This triangle is invalid.")
 
 #Information about the window - Name, size, resisability
 root = Tk()
