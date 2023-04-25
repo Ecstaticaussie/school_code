@@ -19,7 +19,7 @@ def check_sides(event):
     if (side1_entry.get() == "" or side2_entry.get() == "" or side3_entry.get() == ""):
         show_message("All entry boxes need to be filled.")
     #Checks to see if the entry boxes has any 0's
-    elif (side1_entry.get() == 0 or side2_entry.get() == 0 or side3_entry.get() == 0):
+    elif (side1_entry.get() == "0" or side2_entry.get() == "0" or side3_entry.get() == "0"):
         show_message("Don't input 0's.")
     #Checks to see if the inputs are integers (tried to make it using a minimal amount of lines)
     elif not(side1_entry.get().isdigit() and side2_entry.get().isdigit() and side3_entry.get().isdigit()):
