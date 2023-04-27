@@ -7,17 +7,60 @@ root = Tk()
 root.title("Triangle Checker")
 root.geometry("340x300")
 
+#this is to close and open the graph again
+is_graph_open = False
+
 #Draw the traingle if valid on a graph
 def draw_triangle(side1, side2, side3):
     #This is for the first side
     x1 = [0, side1]
     y1 = [0, 0]
-    plt.plot(x1, y1)
 
+    #This is for working out the top most vertex of the triangle
+    
+    """
+    equation of circle with r = side2: x**2 + y**2 = side2**2
+    y**2 = side2**2 - x**2
+    y = (side2**2 - x**2)**0.5
+
+    equation of circle with r = side3: (x-side1)**2 + y**2 = side3**2
+    y**2 = side3**2 - (x-side1)**2
+
+    Make the equations equal to each other and solve for x:
+    side2**2 - x**2 = side3**2 - (x-side1)**2
+    side2**2 - x**2 = side3**2 - x**2 - 2*side1*x + side1**2
+    side2**2 = side3**2 - 2*side1*x + side1**2
+    2*side1*x = side3**2 + side1**2 - side2**2
+    x = (side3**2 + side1**2 - side2**2) / side1*2
+
+    Sub this x value into y = (side2**2 - x**2)**0.5 to get the y value
+
+    (x, y) are the coordinates for the topmost vertex
+    """
+
+    topmost_x = (side3**2 + side1**2 - side2**2) / side1*2
+    topmost_y = (side2**2 - topmost_x**2)**0.5
+
+
+    #This is for the second side
+    x2 = [0, topmost_x]
+    y2 = [0, topmost_y]
+
+    #This is for the third side
+    x3 = [side1, topmost_x]
+    y3 = [0, topmost_y]
 
     #Giving values for the axis
     plt.xticks([i for i in range(side1+1)])
     plt.yticks([i - 2 for i in range(22)])
+
+    #Checking to see if a graph is already drawn
+    if is_graph_open:
+        plt.close()
+    else: is_graph_open = True
+    plt.plot(x1, y1)
+    plt.plot(x1, y1)
+    plt.plot(x1, y1)
     plt.show()
 
 #Used to show messages easier
@@ -93,4 +136,5 @@ check_button.grid(row=4, column=1)
 #This is done to replace the message shown underneath the check button
 message_label = Label(root, text=" ")
 message_label.grid(row=5, column=1)
+
 root.mainloop()
