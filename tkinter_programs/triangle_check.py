@@ -1,10 +1,24 @@
 from tkinter import Tk, StringVar
 from tkinter.ttk import Label, Button, Entry
+import matplotlib.pyplot as plt
 
 #Information about the window - Name, size, resisability
 root = Tk()
 root.title("Triangle Checker")
 root.geometry("340x300")
+
+#Draw the traingle if valid on a graph
+def draw_triangle(side1, side2, side3):
+    #This is for the first side
+    x1 = [0, side1]
+    y1 = [0, 0]
+    plt.plot(x1, y1)
+
+
+    #Giving values for the axis
+    plt.xticks([i for i in range(side1+1)])
+    plt.yticks([i - 2 for i in range(22)])
+    plt.show()
 
 #Used to show messages easier
 def show_message(txt):
@@ -36,7 +50,9 @@ def check_sides(event):
         sides.remove(longest_side)
 
         #Triangular inequality: sum of shorter sides >= longest side
-        if sum(sides) >= longest_side: show_message("This triangle is valid.")
+        if sum(sides) >= longest_side:
+            show_message("This triangle is valid.")
+            draw_triangle(side1, side2, side3)
         else: show_message("This triangle is invalid.")
 
 #Introduction message at the top
