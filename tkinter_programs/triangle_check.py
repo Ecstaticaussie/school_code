@@ -1,7 +1,6 @@
 from tkinter import Tk, StringVar
 from tkinter.ttk import Label, Button, Entry
 import matplotlib.pyplot as plt
-
 #Information about the window - Name, size, resisability
 root = Tk()
 root.title("Triangle Checker")
@@ -11,17 +10,16 @@ root.geometry("340x300")
 is_graph_open = False
 
 #Draw the traingle if valid on a graph
-def draw_triangle(side1, side2, side3):
+def draw_triangle(side1, side2, side3, is_graph_open):
     #This is for the first side
     x1 = [0, side1]
     y1 = [0, 0]
 
     #This is for working out the top most vertex of the triangle
-    
     """
     equation of circle with r = side2: x**2 + y**2 = side2**2
     y**2 = side2**2 - x**2
-    y = (side2**2 - x**2)**0.5
+    y = abs((side2**2 - x**2))**0.5
 
     equation of circle with r = side3: (x-side1)**2 + y**2 = side3**2
     y**2 = side3**2 - (x-side1)**2
@@ -37,10 +35,10 @@ def draw_triangle(side1, side2, side3):
 
     (x, y) are the coordinates for the topmost vertex
     """
-
     topmost_x = (side3**2 + side1**2 - side2**2) / side1*2
-    topmost_y = (side2**2 - topmost_x**2)**0.5
+    topmost_y = abs((side2**2 - topmost_x**2))**0.5
 
+    print(topmost_x, topmost_y)
 
     #This is for the second side
     x2 = [0, topmost_x]
@@ -52,15 +50,17 @@ def draw_triangle(side1, side2, side3):
 
     #Giving values for the axis
     plt.xticks([i for i in range(side1+1)])
-    plt.yticks([i - 2 for i in range(22)])
+    plt.yticks([i - 2 for i in range(int(topmost_y) + 2)])
 
     #Checking to see if a graph is already drawn
     if is_graph_open:
         plt.close()
     else: is_graph_open = True
+
+    #Plots the grpah of the triangle
     plt.plot(x1, y1)
-    plt.plot(x1, y1)
-    plt.plot(x1, y1)
+    plt.plot(x2, y2)
+    plt.plot(x3, y3)
     plt.show()
 
 #Used to show messages easier
@@ -76,8 +76,8 @@ def check_sides(event):
     if (side1_entry.get() == "" or side2_entry.get() == "" or side3_entry.get() == ""):
         show_message("All entry boxes need to be filled.")
     #Checks to see if the entry boxes has any 0's
-    elif (side1_entry.get() == "0" or side2_entry.get() == "0" or side3_entry.get() == "0"):
-        show_message("Don't input 0's.")
+    elif (side1_entry.get() <= "0" or side2_entry.get() <= "0" or side3_entry.get() <= "0"):
+        show_message("Only input positive integers.")
     #Checks to see if the inputs are integers (tried to make it using a minimal amount of lines)
     elif not(side1_entry.get().isdigit() and side2_entry.get().isdigit() and side3_entry.get().isdigit()):
         show_message("Only input INTEGERS!!")
@@ -95,8 +95,11 @@ def check_sides(event):
         #Triangular inequality: sum of shorter sides >= longest side
         if sum(sides) >= longest_side:
             show_message("This triangle is valid.")
-            draw_triangle(side1, side2, side3)
-        else: show_message("This triangle is invalid.")
+            draw_triangle(side1, side2, side3, is_graph_open)
+        else:
+            #Closes the graph if it open
+            if is_graph_open: plt.close()
+            show_message("This triangle is invalid.")
 
 #Introduction message at the top
 intro_label = Label(root, text="Enter sides to check if they make a triangle :")
