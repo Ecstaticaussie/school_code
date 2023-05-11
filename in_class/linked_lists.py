@@ -16,8 +16,12 @@ class Linked_list:
         self.create_linked_list(values)
     
     #Creation of the node
-    def __add__(self, num, value, forward_pointer):
-        self.linked_list[f"Node{num}"] = Node(value, forward_pointer)
+    def __add__(self, value, forward_pointer):
+        #Update all the keys by increasing each value by 1
+        for key in self.linked_list:
+            dict_val = self.linked_list[key]
+            
+            
 
     #Proper creation of the linked list
     def create_linked_list(self, values):
@@ -31,6 +35,6 @@ class Linked_list:
             #Adding of the next nodes - these are at the beginning of the linked list
             else: self.__add(self.size-1, values[i], values[i-1])
             #Setting head to the first node
-            self.head = self.linked_list[f"Node{self.size-i}"]
+            self.head = self.linked_list[f"{self.size-i}"]
 
     
