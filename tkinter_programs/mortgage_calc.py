@@ -1,5 +1,5 @@
-from customtkinter import CTk, CTkLabel
-
+from customtkinter import CTk, CTkLabel, CTkEntry, CTkRadioButton
+from tkinter import StringVar
 """
 Need the user to input the number of terms - integers
 Get the starting amount -> A float to 2d.p.
@@ -20,5 +20,6 @@ class Root(CTk):
         self.geometry("400x400")
 
         #Entry box to allow the user to choose the regular interval
+        self.regular_intervals_Radio = CTkRadioButton(self, )
 root = Root()
 root.mainloop()
