@@ -9,4 +9,4 @@ reapeted_chars_percent = {letter: reapeted_chars[letter]/total_chars*100 for let
 
 sorted_repeated_chars = {key: val for key, val in sorted(reapeted_chars_percent.items(), key=lambda ele: ele[1], reverse=True)}
 
-print(sorted_repeated_chars)
+print(len(reapeted_chars))
