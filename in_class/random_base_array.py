@@ -1,5 +1,6 @@
 from random import random, randint
 from math import trunc
+from copy import copy, deepcopy
 
 initial_2d = [[None for i in range(3)] for i in range(3)]
 hex_dict = {"0":"0", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9", "A": "10", "B": "11", "C": "12", "D": "13", "E": "14", "F": "15"}
@@ -25,7 +26,7 @@ for i in range(3):
             case 2: initial_2d[i][j] = "h" + hex(randint(0, 4095))[2:].upper() #hex
             case 3: initial_2d[i][j] = bin_converter(randint(-255, 255) + round(random(), 3)) #binary
 
-final_2d = initial_2d
+final_2d = initial_2d.deepcopy()
 
 for i in range(3):
     for j in range(3):
